@@ -11,7 +11,7 @@ export default class TodoItem
     #progress;
     #checklist;
 
-    constructor(title, description = "", dueDate = Date.now, priority = 0)
+    constructor(title, description = "", dueDate = Date.now, priority = 0, ...items)
     {
         this.#title = title;
         this.#description = description;
@@ -19,7 +19,35 @@ export default class TodoItem
         this.#priority = priority;
 
         this.#checked = false;
-        this.#progress = 1;
-        this.#checklist = [];
+
+        if (items.length > 0)
+        {
+            this.addChecklistItems(items);
+        }
+        else
+        {
+            this.#progress = 1;
+            this.#checklist = [];
+        }
+    }
+
+    #updateProgress()
+    {
+        this.#progress = this.#checklist.reduce((total, item, _, __) => item.checked ? total + 1: total) / this.#checklist.length;
+    }
+
+    addChecklistItem(item)
+    {
+        const id = crypto.randomUUID();
+        this.#checklist.push({id, item: item});
+        this.#updateProgress();
+    }
+
+    addChecklistItems(...items)
+    {
+        for (item in items)
+        {
+            this.addChecklistItem(item);
+        }
     }
 }
