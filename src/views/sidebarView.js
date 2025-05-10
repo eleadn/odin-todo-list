@@ -5,7 +5,6 @@ import ViewBase from "./viewBase"
 export default class SidebarView extends ViewBase
 {
     #sidebar;
-
     #sidebarViewModel;
 
     constructor(document, sidebar, sidebarViewModel)
@@ -14,6 +13,26 @@ export default class SidebarView extends ViewBase
 
         this.#sidebar = sidebar;
         this.#sidebarViewModel = sidebarViewModel;
+    }
+
+    #userNameEditClick(userNameTextBox)
+    {
+        userNameTextBox.setAttribute("contentEditable", true);
+        userNameTextBox.focus();
+    }
+
+    #userNameKeyPress(key, userNameTextBox)
+    {
+        if (key === "Enter")
+        {
+            this.#userNameFocusOut(userNameTextBox);
+        }
+    }
+
+    #userNameFocusOut(userNameTextBox)
+    {
+        userNameTextBox.setAttribute("contentEditable", false);
+        this.#sidebarViewModel.onUserNameChanged(userNameTextBox.textContent);
     }
 
     #resetSidebar()
@@ -33,12 +52,15 @@ export default class SidebarView extends ViewBase
         userNameTextBox.classList.add("input");
         userNameTextBox.classList.add("user-name-textbox");
         userNameTextBox.textContent = this.#sidebarViewModel.userName;
+        userNameTextBox.addEventListener("focusout", _ => this.#userNameFocusOut(userNameTextBox));
+        userNameTextBox.addEventListener("keypress", event => this.#userNameKeyPress(event.key, userNameTextBox))
 
         const virgule = this.document.createElement("p");
         virgule.textContent = ",";
 
         const userNameEdit = this.document.createElement("button");
         userNameEdit.classList.add("user-name-edit");
+        userNameEdit.addEventListener("click", _ => this.#userNameEditClick(userNameTextBox));
 
         const userNameEditImg = this.document.createElement("div");
 

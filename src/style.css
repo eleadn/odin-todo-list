@@ -50,13 +50,6 @@ body
     display: flex;
 }
 
-.user-name-textbox.edition
-{
-    border-radius: 5px;
-    padding: 0 5px;
-    border: 1px solid darkred;
-}
-
 .user-name-edit
 {
     padding: 4px;

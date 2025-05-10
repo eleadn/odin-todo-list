@@ -18,6 +18,11 @@ export default class User
         }
     }
 
+    set name(newName)
+    {
+        this.#name = newName;
+    }
+
     get name()
     {
         return this.#name;
