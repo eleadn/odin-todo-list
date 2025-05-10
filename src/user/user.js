@@ -2,27 +2,25 @@ import Project from "../todo-project/project";
 
 export default class User
 {
-    #userName;
+    #name;
 
     #projects;
 
-    constructor(userName, ...projects)
+    constructor(name, ...projects)
     {
-        this.#userName = userName;
+        this.#name = name;
+
+        this.#projects = [];
 
         if (projects.length > 0)
         {
             this.addProjects(projects);
         }
-        else
-        {
-            this.#projects = [];
-        }
     }
 
-    get userName()
+    get name()
     {
-        return this.#userName;
+        return this.#name;
     }
 
     get projects()
@@ -33,14 +31,14 @@ export default class User
     addProject(project)
     {
         const id = crypto.randomUUID();
-        this.#projects.push({id, project});
+        this.#projects.push({id, infos: project});
     }
 
-    addProjects(...projects)
+    addProjects(projects)
     {
-        for (project in projects)
+        for (let i = 0; i < projects.length; ++i)
         {
-            this.addProject(project);
+            this.addProject(projects[i]);
         }
     }
 
