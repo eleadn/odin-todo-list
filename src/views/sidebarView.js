@@ -6,6 +6,8 @@ export default class SidebarView extends ViewBase
 {
     #sidebar;
     #sidebarViewModel;
+    
+    #selectedProject;
 
     constructor(document, sidebar, sidebarViewModel)
     {
@@ -13,6 +15,8 @@ export default class SidebarView extends ViewBase
 
         this.#sidebar = sidebar;
         this.#sidebarViewModel = sidebarViewModel;
+
+        this.#selectedProject = null;
     }
 
     #userNameEditClick(userNameTextBox)
@@ -33,6 +37,16 @@ export default class SidebarView extends ViewBase
     {
         this.#sidebarViewModel.onAddProject();
         this.show();
+    }
+
+    #setSelectedProject(project)
+    {
+        if (this.#selectedProject !== null)
+        {
+            this.#selectedProject.classList.remove("selected");
+        }
+        this.#selectedProject = project;
+        this.#selectedProject.classList.add("selected");
     }
 
     #userNameFocusOut(userNameTextBox)
@@ -109,19 +123,24 @@ export default class SidebarView extends ViewBase
 
         for (let i = 0; i < projects.length; ++i)
         {
-            const projectElement = this.#createProjectElement(projects[i].infos);
+            const projectElement = this.#createProjectElement(projects[i].infos, i == 0);
             projectList.appendChild(projectElement);
         }
 
         this.#sidebar.appendChild(projectList);
     }
 
-    #createProjectElement(project)
+    #createProjectElement(project, shouldSelect = false)
     {
         const listItem = this.document.createElement("li");
 
         const projectButton = this.document.createElement("button");
         projectButton.classList.add("project-button");
+        if (shouldSelect)
+        {
+            this.#setSelectedProject(projectButton);
+        }
+        projectButton.addEventListener("click", _ => this.#setSelectedProject(projectButton));
 
         const projectTitle = this.document.createElement("p");
         projectTitle.textContent = project.title;

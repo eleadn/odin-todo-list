@@ -11,6 +11,7 @@
 {
     --main-color: #C62828;
     --main-color-active: #DA4747;
+    --main-color-selected: #AE2323;
     --main-font-color: white;
     --main-font-color-active: #E6E6E6;
     --secondary-color: #FFCDD2;
@@ -124,6 +125,11 @@ body
 .project-button:hover
 {
     background-color: var(--main-color-active);
+}
+
+.project-button.selected
+{
+    background-color: var(--main-color-selected);
 }
 
 .project-button p
