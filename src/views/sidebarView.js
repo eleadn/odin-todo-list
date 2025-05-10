@@ -29,6 +29,12 @@ export default class SidebarView extends ViewBase
         }
     }
 
+    #addProjectClick()
+    {
+        this.#sidebarViewModel.onAddProject();
+        this.show();
+    }
+
     #userNameFocusOut(userNameTextBox)
     {
         userNameTextBox.setAttribute("contentEditable", false);
@@ -83,6 +89,7 @@ export default class SidebarView extends ViewBase
 
         const addProjectButton = this.document.createElement("button");
         addProjectButton.classList.add("add-project");
+        addProjectButton.addEventListener("click", _ => this.#addProjectClick());
 
         const addProjectButtonImg = this.document.createElement("div");
 

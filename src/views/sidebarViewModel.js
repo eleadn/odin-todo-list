@@ -1,14 +1,28 @@
 export default class SidebarViewModel
 {
     #user;
+    #defaultProject;
 
     onUserNameChanged;
+    onAddProject;
 
-    constructor(user)
+    constructor(user, defaultProject)
     {
         this.#user = user;
+        this.#defaultProject = defaultProject;
+
+        if (this.#user.projects.length === 0)
+        {
+            this.#user.addProject(defaultProject);
+        }
 
         this.onUserNameChanged = this.#userNameChanged;
+        this.onAddProject = this.#addProject;
+    }
+
+    #addProject()
+    {
+        this.#user.addProject(this.#defaultProject);
     }
 
     #userNameChanged(newName)

@@ -4,11 +4,10 @@ import User from "./user/user"
 import SidebarView from "./views/sidebarView"
 import SidebarViewModel from "./views/sidebarViewModel"
 
-const project1 = new Project("This is a project");
-const project2 = new Project("Project 2");
+const defaultProject = new Project("New Project");
 
-const user = new User("Eleanore", project1, project2);
-const sidebarViewModel = new SidebarViewModel(user);
+const user = new User("Eleanore");
+const sidebarViewModel = new SidebarViewModel(user, defaultProject);
 const sidebar = document.querySelector("#sidebar");
 
 const sidebarView = new SidebarView(document, sidebar, sidebarViewModel);
