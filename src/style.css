@@ -24,7 +24,7 @@ body
     display: flex;
 }
 
-#user-infos
+#sidebar
 {
     background-color: var(--main-color);
     color: var(--main-font-color);
@@ -143,7 +143,7 @@ body
     display: flex;
 }
 
-#project-infos
+#project-display
 {
     flex: 4;
 }

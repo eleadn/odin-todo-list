@@ -9,7 +9,7 @@ const project2 = new Project("Project 2");
 
 const user = new User("Eleanore", project1, project2);
 const sidebarViewModel = new SidebarViewModel(user);
-const sidebar = document.querySelector("#user-infos");
+const sidebar = document.querySelector("#sidebar");
 
 const sidebarView = new SidebarView(document, sidebar, sidebarViewModel);
 
