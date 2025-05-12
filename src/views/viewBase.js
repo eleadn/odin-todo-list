@@ -1,15 +1,12 @@
 export default class ViewBase
 {
-    #document;
+    _document;
+    _container;
 
-    constructor(document)
+    constructor(document, container)
     {
-        this.#document = document;
-    }
-
-    get document()
-    {
-        return this.#document;
+        this._document = document;
+        this._container = container;
     }
 
     show()

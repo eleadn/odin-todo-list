@@ -4,16 +4,14 @@ import ViewBase from "./viewBase"
 
 export default class SidebarView extends ViewBase
 {
-    #sidebar;
     #sidebarViewModel;
     
     #selectedProject;
 
     constructor(document, sidebar, sidebarViewModel)
     {
-        super(document);
+        super(document, sidebar);
 
-        this.#sidebar = sidebar;
         this.#sidebarViewModel = sidebarViewModel;
 
         this.#selectedProject = null;
@@ -57,32 +55,32 @@ export default class SidebarView extends ViewBase
 
     #resetSidebar()
     {
-        while (this.#sidebar.firstChild)
+        while (this._container.firstChild)
         {
-            this.#sidebar.removeChild(this.#sidebar.lastChild);
+            this._container.removeChild(this._container.lastChild);
         }
     }
 
     #showUserName()
     {
-        const userName = this.document.createElement("div");
+        const userName = this._document.createElement("div");
         userName.classList.add("user-name");
 
-        const userNameTextBox = this.document.createElement("span");
+        const userNameTextBox = this._document.createElement("span");
         userNameTextBox.classList.add("input");
         userNameTextBox.classList.add("user-name-textbox");
         userNameTextBox.textContent = this.#sidebarViewModel.userName;
         userNameTextBox.addEventListener("focusout", _ => this.#userNameFocusOut(userNameTextBox));
         userNameTextBox.addEventListener("keypress", event => this.#userNameKeyPress(event.key, userNameTextBox))
 
-        const virgule = this.document.createElement("p");
+        const virgule = this._document.createElement("p");
         virgule.textContent = ",";
 
-        const userNameEdit = this.document.createElement("button");
+        const userNameEdit = this._document.createElement("button");
         userNameEdit.classList.add("user-name-edit");
         userNameEdit.addEventListener("click", _ => this.#userNameEditClick(userNameTextBox));
 
-        const userNameEditImg = this.document.createElement("div");
+        const userNameEditImg = this._document.createElement("div");
 
         userNameEdit.appendChild(userNameEditImg);
 
@@ -90,34 +88,34 @@ export default class SidebarView extends ViewBase
         userName.appendChild(virgule);
         userName.appendChild(userNameEdit);
 
-        this.#sidebar.appendChild(userName);
+        this._container.appendChild(userName);
     }
 
     #showProjectListHeader()
     {
-        const header = this.document.createElement("div");
+        const header = this._document.createElement("div");
         header.classList.add("project-list-header");
 
-        const title = this.document.createElement("h3");
+        const title = this._document.createElement("h3");
         title.textContent = "Your projects";
 
-        const addProjectButton = this.document.createElement("button");
+        const addProjectButton = this._document.createElement("button");
         addProjectButton.classList.add("add-project");
         addProjectButton.addEventListener("click", _ => this.#addProjectClick());
 
-        const addProjectButtonImg = this.document.createElement("div");
+        const addProjectButtonImg = this._document.createElement("div");
 
         addProjectButton.appendChild(addProjectButtonImg);
 
         header.appendChild(title);
         header.appendChild(addProjectButton);
 
-        this.#sidebar.appendChild(header);
+        this._container.appendChild(header);
     }
 
     #showProjectList()
     {
-        const projectList = this.document.createElement("ul");
+        const projectList = this._document.createElement("ul");
         projectList.classList.add("project-list");
         const projects = this.#sidebarViewModel.userProjects;
 
@@ -127,14 +125,14 @@ export default class SidebarView extends ViewBase
             projectList.appendChild(projectElement);
         }
 
-        this.#sidebar.appendChild(projectList);
+        this._container.appendChild(projectList);
     }
 
     #createProjectElement(project, shouldSelect = false)
     {
-        const listItem = this.document.createElement("li");
+        const listItem = this._document.createElement("li");
 
-        const projectButton = this.document.createElement("button");
+        const projectButton = this._document.createElement("button");
         projectButton.classList.add("project-button");
         if (shouldSelect)
         {
@@ -142,7 +140,7 @@ export default class SidebarView extends ViewBase
         }
         projectButton.addEventListener("click", _ => this.#setSelectedProject(projectButton));
 
-        const projectTitle = this.document.createElement("p");
+        const projectTitle = this._document.createElement("p");
         projectTitle.textContent = project.title;
 
         projectButton.appendChild(projectTitle);
