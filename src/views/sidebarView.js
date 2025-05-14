@@ -18,11 +18,6 @@ export default class SidebarView extends ViewBase
         this.#selectedProject = null;
     }
 
-    #userNameEditClick(userNameTextBox)
-    {
-        userNameTextBox.startEdit();
-    }
-
     #addProjectClick()
     {
         this.#sidebarViewModel.onAddProject();
@@ -55,7 +50,7 @@ export default class SidebarView extends ViewBase
 
         const userNameEdit = this._document.createElement("button");
         userNameEdit.classList.add("user-name-edit");
-        userNameEdit.addEventListener("click", _ => this.#userNameEditClick(textbox));
+        userNameEdit.addEventListener("click", _ => textbox.startEdit());
 
         const userNameEditImg = this._document.createElement("div");
 
