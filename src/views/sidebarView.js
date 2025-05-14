@@ -1,5 +1,6 @@
 require("./sidebarViewModel")
 
+import TextBox from "../utility/textBox";
 import ViewBase from "./viewBase"
 
 export default class SidebarView extends ViewBase
@@ -19,16 +20,7 @@ export default class SidebarView extends ViewBase
 
     #userNameEditClick(userNameTextBox)
     {
-        userNameTextBox.setAttribute("contentEditable", true);
-        userNameTextBox.focus();
-    }
-
-    #userNameKeyPress(key, userNameTextBox)
-    {
-        if (key === "Enter")
-        {
-            this.#userNameFocusOut(userNameTextBox);
-        }
+        userNameTextBox.startEdit();
     }
 
     #addProjectClick()
@@ -47,36 +39,29 @@ export default class SidebarView extends ViewBase
         this.#selectedProject.classList.add("selected");
     }
 
-    #userNameFocusOut(userNameTextBox)
-    {
-        userNameTextBox.setAttribute("contentEditable", false);
-        this.#sidebarViewModel.onUserNameChanged(userNameTextBox.textContent);
-    }
-
     #showUserName()
     {
         const userName = this._document.createElement("div");
         userName.classList.add("user-name");
 
-        const userNameTextBox = this._document.createElement("span");
-        userNameTextBox.classList.add("input");
-        userNameTextBox.classList.add("user-name-textbox");
-        userNameTextBox.textContent = this.#sidebarViewModel.userName;
-        userNameTextBox.addEventListener("focusout", _ => this.#userNameFocusOut(userNameTextBox));
-        userNameTextBox.addEventListener("keypress", event => this.#userNameKeyPress(event.key, userNameTextBox))
+        const textbox = new TextBox(
+            this._document,
+            this.#sidebarViewModel.userName,
+            "user-name-textbox");
+        textbox.onContentChanged = (name) => this.#sidebarViewModel.onUserNameChanged(name);
 
         const virgule = this._document.createElement("p");
         virgule.textContent = ",";
 
         const userNameEdit = this._document.createElement("button");
         userNameEdit.classList.add("user-name-edit");
-        userNameEdit.addEventListener("click", _ => this.#userNameEditClick(userNameTextBox));
+        userNameEdit.addEventListener("click", _ => this.#userNameEditClick(textbox));
 
         const userNameEditImg = this._document.createElement("div");
 
         userNameEdit.appendChild(userNameEditImg);
 
-        userName.appendChild(userNameTextBox);
+        textbox.setParent(userName);
         userName.appendChild(virgule);
         userName.appendChild(userNameEdit);
 
