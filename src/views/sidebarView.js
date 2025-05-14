@@ -53,14 +53,6 @@ export default class SidebarView extends ViewBase
         this.#sidebarViewModel.onUserNameChanged(userNameTextBox.textContent);
     }
 
-    #resetSidebar()
-    {
-        while (this._container.firstChild)
-        {
-            this._container.removeChild(this._container.lastChild);
-        }
-    }
-
     #showUserName()
     {
         const userName = this._document.createElement("div");
@@ -122,6 +114,7 @@ export default class SidebarView extends ViewBase
         for (let i = 0; i < projects.length; ++i)
         {
             const projectElement = this.#createProjectElement(projects[i].infos, i == 0);
+            projectElement.dataset.id = projects[i].id;
             projectList.appendChild(projectElement);
         }
 
@@ -152,7 +145,7 @@ export default class SidebarView extends ViewBase
 
     show()
     {
-        this.#resetSidebar();
+        this._resetContainer();
 
         this.#showUserName();
         this.#showProjectListHeader();
