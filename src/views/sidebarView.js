@@ -145,7 +145,7 @@ export default class SidebarView extends ViewBase
 
     show()
     {
-        this._resetContainer();
+        super.show();
 
         this.#showUserName();
         this.#showProjectListHeader();

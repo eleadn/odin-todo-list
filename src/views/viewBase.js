@@ -18,5 +18,7 @@ export default class ViewBase
     }
 
     show()
-    {}
+    {
+        this._resetContainer();
+    }
 }
