@@ -1,6 +1,6 @@
 require("./sidebarViewModel")
 
-import TextBox from "../utility/textBox";
+import TextBox from "../utility/textbox";
 import ViewBase from "./viewBase"
 
 export default class SidebarView extends ViewBase
@@ -39,24 +39,25 @@ export default class SidebarView extends ViewBase
         const userName = this._document.createElement("div");
         userName.classList.add("user-name");
 
-        const textbox = new TextBox(
+        const userNameTextbox = new TextBox(
             this._document,
             this.#sidebarViewModel.userName,
-            "user-name-textbox");
-        textbox.onContentChanged = (name) => this.#sidebarViewModel.onUserNameChanged(name);
+            "user-name-textbox"
+        );
+        userNameTextbox.onContentChanged = (name) => this.#sidebarViewModel.onUserNameChanged(name);
 
         const virgule = this._document.createElement("p");
         virgule.textContent = ",";
 
         const userNameEdit = this._document.createElement("button");
         userNameEdit.classList.add("user-name-edit");
-        userNameEdit.addEventListener("click", _ => textbox.startEdit());
+        userNameEdit.addEventListener("click", _ => userNameTextbox.startEdit());
 
         const userNameEditImg = this._document.createElement("div");
 
         userNameEdit.appendChild(userNameEditImg);
 
-        textbox.setParent(userName);
+        userNameTextbox.setParent(userName);
         userName.appendChild(virgule);
         userName.appendChild(userNameEdit);
 
