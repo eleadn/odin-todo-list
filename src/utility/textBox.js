@@ -4,7 +4,7 @@ export default class TextBox
 
     #textbox;
 
-    constructor(document, content, ...classes)
+    constructor(document, content, classes = [], alwaysActive = false)
     {
         this.#textbox = document.createElement("span");
         this.#textbox.textContent = content;
@@ -13,6 +13,10 @@ export default class TextBox
             this.#textbox.classList.add(classes);
         }
 
+        if (alwaysActive)
+        {
+            this.#textbox.addEventListener("click", _ => this.startEdit());
+        }
         this.#textbox.addEventListener("focusout", _ => this.#onFocusOut());
         this.#textbox.addEventListener("keypress", event => this.#handleEnter(event.key));
 
@@ -33,6 +37,7 @@ export default class TextBox
     #onFocusOut()
     {
         this.#textbox.setAttribute("contenteditable", "false");
+
         if (this.onContentChanged !== null)
         {
             this.onContentChanged(this.#textbox.textContent);

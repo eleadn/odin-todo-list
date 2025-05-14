@@ -42,7 +42,7 @@ export default class SidebarView extends ViewBase
         const userNameTextbox = new TextBox(
             this._document,
             this.#sidebarViewModel.userName,
-            "user-name-textbox"
+            ["user-name-textbox"]
         );
         userNameTextbox.onContentChanged = (name) => this.#sidebarViewModel.onUserNameChanged(name);
 
