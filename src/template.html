@@ -7,6 +7,64 @@
 </head>
 <body>
     <div id="sidebar"></div>
-    <div id="project-display"></div>
+    <div id="project-display">
+        <div class="project-header">
+            <div class="project-name-header">
+                <span class="project-name" role="textbox" contenteditable="true">Project Name</span>
+                <button class="edit-project-name">
+                    <div></div>
+                </button>
+            </div>
+            <span class="project-desc" role="textbox" contenteditable="true">Description</span>
+        </div>
+        <div class="list-todo-header">
+            <h2>Todo</h2>
+            <button class="button-add-todo">
+                <div></div>
+            </button>
+        </div>
+        <ul class="list-todo">
+            <li class="todo">
+                <div class="todo-header">
+                    <button class="todo-expand expanded">
+                        <div></div>
+                    </button>
+                    <input type="checkbox">
+                    <div class="todo-name-header">
+                        <span class="todo-name" role="textbox" contenteditable="true">Todo 1</span>
+                        <button class="todo-name-edit">
+                            <div></div>
+                        </button>
+                    </div>
+                </div>
+                <div class="todo-options">
+                    <progress value="0.5"></progress>
+                    <select name="priority">
+                        <option value="0">Very Low</option>
+                        <option value="1">Low</option>
+                        <option value="2" selected>Normal</option>
+                        <option value="3">High</option>
+                        <option value="4">Very High</option>
+                    </select>
+                    <input class="todo-deadline" type="date"></input>
+                </div>
+                <p class="todo-desc" role="textbox" contenteditable="true">Description</p>
+                <div class="todo-tasks">
+                    <div class="todo-tasks-header">
+                        <h4>Tasks</h4>
+                        <button class="button-add-task">
+                            <div></div>
+                        </button>
+                    </div>
+                    <ul class="list-task">
+                        <li class="task">
+                            <input type="checkbox">
+                            <span class="task-desc" role="textbox" contenteditable="true">Task 1</span>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
