@@ -31,9 +31,18 @@ export default class TodoItem
         }
     }
 
-    #updateProgress()
+    getCopy()
     {
-        this.#progress = this.#checklist.reduce((total, item, _, __) => item.checked ? total + 1: total) / this.#checklist.length;
+        const copy = new TodoItem(this.#title, this.#description);
+        copy.#dueDate = this.#dueDate;
+        copy.#priority = this.#priority;
+        copy.#checked = this.#checked;
+        copy.#progress = this.#progress;
+
+        for (item in this.#checklist)
+        {
+            copy.#checklist.push(item.getCopy());
+        }
     }
 
     addChecklistItem(item)
@@ -49,5 +58,10 @@ export default class TodoItem
         {
             this.addChecklistItem(item);
         }
+    }
+
+    #updateProgress()
+    {
+        this.#progress = this.#checklist.reduce((total, item, _, __) => item.checked ? total + 1: total) / this.#checklist.length;
     }
 }

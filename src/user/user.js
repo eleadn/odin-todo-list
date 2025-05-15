@@ -49,7 +49,7 @@ export default class User
 
     getProject(id)
     {
-        const project = this.#projects.find((value, _, __) => value.id == id);
+        const project = this.#projects.find((value, _, __) => value.id == id).infos;
         return project !== undefined ? project: null;
     }
 }

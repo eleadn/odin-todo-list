@@ -37,6 +37,19 @@ export default class Project
         return this.#todoList;
     }
 
+    getCopy()
+    {
+        const copy = new Project(this.#title, this.#description);
+        copy.onProjectTitleUpdate = this.onProjectTitleUpdate;
+
+        for (item in this.#todoList)
+        {
+            copy.#todoList.push(item.getCopy());
+        }
+
+        return copy;
+    }
+
     addTodoList(todoItem)
     {
         const id = crypto.randomUUID();

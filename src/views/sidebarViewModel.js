@@ -22,7 +22,7 @@ export default class SidebarViewModel
 
     #addProject()
     {
-        this.#user.addProject(this.#defaultProject);
+        this.#user.addProject(this.#defaultProject.getCopy());
     }
 
     #userNameChanged(newName)

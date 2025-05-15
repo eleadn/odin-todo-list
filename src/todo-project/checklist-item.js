@@ -13,4 +13,11 @@ export default class CheckListItem
     {
         return this.#checked;
     }
+
+    getCopy()
+    {
+        const copy = new CheckListItem(this.#description);
+        copy.#checked = this.#checked;
+        return copy;
+    }
 }
