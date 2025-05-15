@@ -31,7 +31,7 @@ body
     z-index: 10;
     background-color: var(--main-color);
     color: var(--main-font-color);
-    min-width: fit-content;
+    min-width: min-content;
 
     flex: 1;
 
@@ -68,6 +68,7 @@ body
     width: 100%;
     height: 100%;
     background-color:  var(--main-font-color);
+    -webkit-mask-image: url("./resource/pencil.svg");
     mask-image: url("./resource/pencil.svg");
 }
 
@@ -100,6 +101,7 @@ body
     width: 100%;
     height: 100%;
     background-color: var(--main-font-color);
+    -webkit-mask-image: url("./resource/plus-box.svg");
     mask-image: url("./resource/plus-box.svg");
 }
 
@@ -220,6 +222,7 @@ body
     height: 100%;
 
     background-color: black;
+    -webkit-mask-image: url("./resource/plus-box.svg");
     mask-image: url("./resource/plus-box.svg");
 }
 
@@ -369,6 +372,7 @@ body
     height: 100%;
     width: 100%;
     background-color: black;
+    -webkit-mask-image: url("./resource/plus-box.svg");
     mask-image: url("./resource/plus-box.svg");
 }
 
