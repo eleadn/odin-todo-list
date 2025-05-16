@@ -10,6 +10,7 @@ export default class SidebarView extends ViewBase
     #sidebarViewModel;
     
     #selectedProject;
+    #selectedId;
 
     constructor(document, sidebar, sidebarViewModel)
     {
@@ -41,6 +42,8 @@ export default class SidebarView extends ViewBase
         {
             this.selectActiveProjectListener(project.dataset.id);
         }
+
+        this.#selectedId = this.#selectedProject.dataset.id;
     }
 
     #showUserName()
@@ -95,7 +98,7 @@ export default class SidebarView extends ViewBase
         this._container.appendChild(header);
     }
 
-    #showProjectList()
+    #showProjectList(reset)
     {
         const projectList = this._document.createElement("ul");
         projectList.classList.add("project-list");
@@ -103,7 +106,7 @@ export default class SidebarView extends ViewBase
 
         for (let i = 0; i < projects.length; ++i)
         {
-            const projectElement = this.#createProjectElement(projects[i], i == 0);
+            const projectElement = this.#createProjectElement(projects[i], i == 0 && reset);
             projectList.appendChild(projectElement);
         }
 
@@ -117,10 +120,11 @@ export default class SidebarView extends ViewBase
         const projectButton = this._document.createElement("button");
         projectButton.classList.add("project-button");
         projectButton.dataset.id = project.id;
-        if (shouldSelect)
+        if (shouldSelect || !shouldSelect && project.id === this.#selectedId)
         {
             this.#setSelectedProject(projectButton);
         }
+
         projectButton.addEventListener("click", _ => this.#setSelectedProject(projectButton));
 
         const projectTitle = this._document.createElement("p");
@@ -133,12 +137,12 @@ export default class SidebarView extends ViewBase
         return listItem;
     }
 
-    show()
+    show(reset = false)
     {
         super.show();
 
         this.#showUserName();
         this.#showProjectListHeader();
-        this.#showProjectList();
+        this.#showProjectList(reset);
     }
 }

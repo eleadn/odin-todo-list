@@ -26,5 +26,5 @@ sidebarView.selectActiveProjectListener = (projectId) =>
 
 projectViewModel.projectNameListener = () => sidebarView.show();
 
-sidebarView.show();
+sidebarView.show(true);
 projectView.show();
