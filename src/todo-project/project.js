@@ -27,9 +27,19 @@ export default class Project
         return this.#title;
     }
 
+    set title(newTitle)
+    {
+        this.#title = newTitle;
+    }
+
     get description()
     {
         return this.#description;
+    }
+
+    set description(newDesc)
+    {
+        return this.#description = newDesc;
     }
 
     get todoList()

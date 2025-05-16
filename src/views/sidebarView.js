@@ -5,6 +5,8 @@ import ViewBase from "./viewBase"
 
 export default class SidebarView extends ViewBase
 {
+    selectActiveProjectListener;
+
     #sidebarViewModel;
     
     #selectedProject;
@@ -16,6 +18,8 @@ export default class SidebarView extends ViewBase
         this.#sidebarViewModel = sidebarViewModel;
 
         this.#selectedProject = null;
+
+        this.selectActiveProjectListener = null;
     }
 
     #addProjectClick()
@@ -32,6 +36,11 @@ export default class SidebarView extends ViewBase
         }
         this.#selectedProject = project;
         this.#selectedProject.classList.add("selected");
+
+        if (this.selectActiveProjectListener !== null)
+        {
+            this.selectActiveProjectListener(project.dataset.id);
+        }
     }
 
     #showUserName()
@@ -94,8 +103,7 @@ export default class SidebarView extends ViewBase
 
         for (let i = 0; i < projects.length; ++i)
         {
-            const projectElement = this.#createProjectElement(projects[i].infos, i == 0);
-            projectElement.dataset.id = projects[i].id;
+            const projectElement = this.#createProjectElement(projects[i], i == 0);
             projectList.appendChild(projectElement);
         }
 
@@ -108,6 +116,7 @@ export default class SidebarView extends ViewBase
 
         const projectButton = this._document.createElement("button");
         projectButton.classList.add("project-button");
+        projectButton.dataset.id = project.id;
         if (shouldSelect)
         {
             this.#setSelectedProject(projectButton);
@@ -115,7 +124,7 @@ export default class SidebarView extends ViewBase
         projectButton.addEventListener("click", _ => this.#setSelectedProject(projectButton));
 
         const projectTitle = this._document.createElement("p");
-        projectTitle.textContent = project.title;
+        projectTitle.textContent = project.infos.title;
 
         projectButton.appendChild(projectTitle);
 

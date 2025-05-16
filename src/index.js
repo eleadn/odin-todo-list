@@ -18,5 +18,13 @@ const sidebarView = new SidebarView(document, sidebar, sidebarViewModel);
 const projectViewModel = new ProjectViewModel(user, user.projects[0].id);
 const projectView = new ProjectView(document, projectDisplay, projectViewModel);
 
+sidebarView.selectActiveProjectListener = (projectId) => 
+{
+    projectViewModel.selectProject(projectId);
+    projectView.show();
+}
+
+projectViewModel.projectNameListener = () => sidebarView.show();
+
 sidebarView.show();
 projectView.show();

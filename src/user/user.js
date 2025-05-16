@@ -49,7 +49,17 @@ export default class User
 
     getProject(id)
     {
-        const project = this.#projects.find((value, _, __) => value.id == id).infos;
-        return project !== undefined ? project: null;
+        const project = this.#projects.find((value, _, __) => value.id == id);
+        return project !== undefined ? project.infos: null;
+    }
+
+    updateProjectName(id, newName)
+    {
+        this.getProject(id).title = newName;
+    }
+
+    updateProjectDescription(id, newDesc)
+    {
+        this.getProject(id).description = newDesc;
     }
 }

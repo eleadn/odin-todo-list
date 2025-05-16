@@ -1,15 +1,15 @@
 export default class SidebarViewModel
 {
-    #user;
-    #defaultProject;
-
     onUserNameChanged;
     onAddProject;
+
+    #user;
+    #defaultProject;
 
     constructor(user, defaultProject)
     {
         this.#user = user;
-        this.#defaultProject = defaultProject;
+        this.#defaultProject = defaultProject.getCopy();
 
         if (this.#user.projects.length === 0)
         {
@@ -20,16 +20,6 @@ export default class SidebarViewModel
         this.onAddProject = this.#addProject;
     }
 
-    #addProject()
-    {
-        this.#user.addProject(this.#defaultProject.getCopy());
-    }
-
-    #userNameChanged(newName)
-    {
-        this.#user.name = newName;
-    }
-
     get userName()
     {
         return this.#user.name;
@@ -38,5 +28,15 @@ export default class SidebarViewModel
     get userProjects()
     {
         return this.#user.projects;
+    }
+
+    #addProject()
+    {
+        this.#user.addProject(this.#defaultProject.getCopy());
+    }
+
+    #userNameChanged(newName)
+    {
+        this.#user.name = newName;
     }
 }
