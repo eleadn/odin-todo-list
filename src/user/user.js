@@ -62,4 +62,9 @@ export default class User
     {
         this.getProject(id).description = newDesc;
     }
+
+    removeProject(projectId)
+    {
+        this.#projects = this.#projects.filter((value, _, __) => value.id !== projectId);
+    }
 }

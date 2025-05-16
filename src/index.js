@@ -25,6 +25,7 @@ sidebarView.selectActiveProjectListener = (projectId) =>
 }
 
 projectViewModel.projectNameListener = () => sidebarView.show();
+projectViewModel.deleteProjectListener = () => sidebarView.show(true);
 
 sidebarView.show(true);
 projectView.show();

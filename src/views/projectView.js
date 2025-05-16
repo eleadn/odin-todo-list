@@ -43,6 +43,14 @@ export default class ProjectView extends ViewBase
         );
         projectDescTextBox.contentChangedListener = (name) => this.#projectViewModel.onProjectDescriptionChanged(name);
 
+        const removeProject = this._document.createElement("button");
+        removeProject.classList.add("remove-project");
+        removeProject.addEventListener("click", _ => this.#projectViewModel.onDeleteProject());
+
+        const removeProjectPicture = this._document.createElement("div");
+        
+        removeProject.appendChild(removeProjectPicture);
+
         editProjectName.appendChild(editProjectNamePicture);
 
         projectNameTextBox.setParent(projectNameHeader);
@@ -50,6 +58,7 @@ export default class ProjectView extends ViewBase
 
         projectHeader.appendChild(projectNameHeader);
         projectDescTextBox.setParent(projectHeader);
+        projectHeader.appendChild(removeProject);
 
         this._container.appendChild(projectHeader);
     }

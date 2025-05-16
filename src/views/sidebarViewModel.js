@@ -27,6 +27,10 @@ export default class SidebarViewModel
 
     get userProjects()
     {
+        if (this.#user.projects.length === 0)
+        {
+            this.#addProject();
+        }
         return this.#user.projects;
     }
 

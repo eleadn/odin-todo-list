@@ -5,6 +5,9 @@ export default class ProjectViewModel
 
     onProjectDescriptionChanged;
 
+    onDeleteProject;
+    deleteProjectListener;
+
     #user;
     #activeProject;
 
@@ -17,6 +20,7 @@ export default class ProjectViewModel
         this.projectNameListener = null;
 
         this.onProjectDescriptionChanged = this.#projectDescriptionChanged;
+        this.onDeleteProject = this.#deleteProject;
     }
 
     get projectName()
@@ -47,5 +51,15 @@ export default class ProjectViewModel
     #projectDescriptionChanged(newDesc)
     {
         this.#user.updateProjectDescription(this.#activeProject, newDesc);
+    }
+
+    #deleteProject()
+    {
+        this.#user.removeProject(this.#activeProject);
+
+        if (this.deleteProjectListener !== null)
+        {
+            this.deleteProjectListener();
+        }
     }
 }
