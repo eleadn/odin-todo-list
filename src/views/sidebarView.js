@@ -1,6 +1,6 @@
 require("./sidebarViewModel")
 
-import TextBox from "../utility/textbox";
+import TextBox from "../utility/textBox";
 import ViewBase from "./viewBase"
 
 export default class SidebarView extends ViewBase
@@ -44,7 +44,7 @@ export default class SidebarView extends ViewBase
             this.#sidebarViewModel.userName,
             ["user-name-textbox"]
         );
-        userNameTextbox.onContentChanged = (name) => this.#sidebarViewModel.onUserNameChanged(name);
+        userNameTextbox.contentChangedListener = (name) => this.#sidebarViewModel.onUserNameChanged(name);
 
         const virgule = this._document.createElement("p");
         virgule.textContent = ",";

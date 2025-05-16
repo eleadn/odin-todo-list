@@ -1,6 +1,6 @@
 export default class TextBox
 {
-    onContentChanged;
+    contentChangedListener;
 
     #textbox;
 
@@ -20,7 +20,7 @@ export default class TextBox
         this.#textbox.addEventListener("focusout", _ => this.#onFocusOut());
         this.#textbox.addEventListener("keypress", event => this.#handleEnter(event.key));
 
-        this.onContentChanged = null;
+        this.contentChangedListener = null;
     }
 
     setParent(parent)
@@ -38,9 +38,9 @@ export default class TextBox
     {
         this.#textbox.setAttribute("contenteditable", "false");
 
-        if (this.onContentChanged !== null)
+        if (this.contentChangedListener !== null)
         {
-            this.onContentChanged(this.#textbox.textContent);
+            this.contentChangedListener(this.#textbox.textContent);
         }
     }
 

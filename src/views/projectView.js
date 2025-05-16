@@ -1,6 +1,6 @@
 require("./projectViewModel")
 
-import TextBox from "../utility/textbox";
+import TextBox from "../utility/textBox";
 import ViewBase from "./viewBase";
 
 export default class ProjectView extends ViewBase
@@ -27,7 +27,7 @@ export default class ProjectView extends ViewBase
             this.#projectViewModel.projectName,
             ["project-name"]
         );
-        projectNameTextBox.onContentChanged = (name) => this.#projectViewModel.onProjectNameChanged(name);
+        projectNameTextBox.contentChangedListener = (name) => this.#projectViewModel.onProjectNameChanged(name);
 
         const editProjectName = this._document.createElement("button");
         editProjectName.classList.add("edit-project-name");
@@ -41,7 +41,7 @@ export default class ProjectView extends ViewBase
             ["project-desc"],
             true
         );
-        projectDescTextBox.onContentChanged = (name) => this.#projectViewModel.onProjectDescriptionChanged(name);
+        projectDescTextBox.contentChangedListener = (name) => this.#projectViewModel.onProjectDescriptionChanged(name);
 
         editProjectName.appendChild(editProjectNamePicture);
 
