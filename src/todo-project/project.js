@@ -7,18 +7,15 @@ export default class Project
 
     #todoList;
 
-    constructor(title, description = "", ...todoItems)
+    constructor(title, description = "", todoItems = [])
     {
         this.#title = title;
         this.#description = description;
 
+        this.#todoList = [];
         if (todoItems.length > 0)
         {
             this.addTodoLists(todoItems);
-        }
-        else
-        {
-            this.#todoList = [];
         }
     }
 
@@ -52,9 +49,10 @@ export default class Project
         const copy = new Project(this.#title, this.#description);
         copy.onProjectTitleUpdate = this.onProjectTitleUpdate;
 
-        for (item in this.#todoList)
+        for (let i = 0; i < this.#todoList.length; ++i)
         {
-            copy.#todoList.push(item.getCopy());
+            const todoList = this.#todoList.at(i);
+            copy.#todoList.push({id: todoList.id, todo: todoList.todo.getCopy()});
         }
 
         return copy;
@@ -63,14 +61,14 @@ export default class Project
     addTodoList(todoItem)
     {
         const id = crypto.randomUUID();
-        this.#todoList.push({id, todoItem});
+        this.#todoList.push({id, todo: todoItem});
     }
 
-    addTodoLists(...todoItems)
+    addTodoLists(todoItems)
     {
-        for (todoItem in todoItems)
+        for (let i = 0; i < todoItems.length; ++i)
         {
-            this.addTodoList(todoItem);
+            this.addTodoList(todoItems.at(i));
         }
     }
 
