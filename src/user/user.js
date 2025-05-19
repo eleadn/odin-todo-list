@@ -2,41 +2,21 @@ import Project from "../todo-project/project";
 
 export default class User
 {
-    #name;
-
-    #projects;
-
-    constructor(name, ...projects)
+    constructor(name, projects = [])
     {
-        this.#name = name;
+        this.name = name;
 
-        this.#projects = [];
-
+        this.projects = [];
         if (projects.length > 0)
         {
             this.addProjects(projects);
         }
     }
 
-    set name(newName)
-    {
-        this.#name = newName;
-    }
-
-    get name()
-    {
-        return this.#name;
-    }
-
-    get projects()
-    {
-        return this.#projects;
-    }
-
     addProject(project)
     {
         const id = crypto.randomUUID();
-        this.#projects.push({id, infos: project});
+        this.projects.push({id, infos: project});
     }
 
     addProjects(projects)
@@ -49,7 +29,7 @@ export default class User
 
     getProject(id)
     {
-        const project = this.#projects.find((value, _, __) => value.id == id);
+        const project = this.projects.find((value, _, __) => value.id == id);
         return project !== undefined ? project.infos: null;
     }
 
@@ -65,6 +45,6 @@ export default class User
 
     removeProject(projectId)
     {
-        this.#projects = this.#projects.filter((value, _, __) => value.id !== projectId);
+        this.projects = this.projects.filter((value, _, __) => value.id !== projectId);
     }
 }

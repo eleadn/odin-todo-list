@@ -1,58 +1,28 @@
-import TodoItem from "./todo-item";
+require("./todo-item")
 
 export default class Project
 {
-    #title;
-    #description;
-
-    #todoList;
-
     constructor(title, description = "", todoItems = [])
     {
-        this.#title = title;
-        this.#description = description;
+        this.title = title;
+        this.description = description;
 
-        this.#todoList = [];
+        this.todoList = [];
         if (todoItems.length > 0)
         {
             this.addTodoLists(todoItems);
         }
     }
 
-    get title()
-    {
-        return this.#title;
-    }
-
-    set title(newTitle)
-    {
-        this.#title = newTitle;
-    }
-
-    get description()
-    {
-        return this.#description;
-    }
-
-    set description(newDesc)
-    {
-        return this.#description = newDesc;
-    }
-
-    get todoList()
-    {
-        return this.#todoList;
-    }
-
     getCopy()
     {
-        const copy = new Project(this.#title, this.#description);
+        const copy = new Project(this.title, this.description);
         copy.onProjectTitleUpdate = this.onProjectTitleUpdate;
 
-        for (let i = 0; i < this.#todoList.length; ++i)
+        for (let i = 0; i < this.todoList.length; ++i)
         {
-            const todoList = this.#todoList.at(i);
-            copy.#todoList.push({id: todoList.id, todo: todoList.todo.getCopy()});
+            const todoList = this.todoList.at(i);
+            copy.todoList.push({id: todoList.id, todo: todoList.todo.getCopy()});
         }
 
         return copy;
@@ -61,7 +31,7 @@ export default class Project
     addTodoList(todoItem)
     {
         const id = crypto.randomUUID();
-        this.#todoList.push({id, todo: todoItem});
+        this.todoList.push({id, todo: todoItem});
     }
 
     addTodoLists(todoItems)
@@ -74,7 +44,7 @@ export default class Project
 
     getTodoList(id)
     {
-        const todoList = this.#todoList.find((value, _, __) => value.id === id);
+        const todoList = this.todoList.find((value, _, __) => value.id === id);
         return todoList !== undefined ? todoList: null;
     }
 }
