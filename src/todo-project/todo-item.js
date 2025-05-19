@@ -1,4 +1,4 @@
-require("./checklist-item")
+import CheckListItem from "./checklist-item";
 
 export default class TodoItem
 {
@@ -19,19 +19,10 @@ export default class TodoItem
         }
     }
 
-    getCopy()
+    static makeDefault()
     {
-        const copy = new TodoItem(this.title, this.description);
-        copy.dueDate = this.dueDate;
-        copy.priority = this.priority;
-        copy.checked = this.checked;
-        copy.progress = this.progress;
-        copy.checklist = [];
-
-        for (item in this.checklist)
-        {
-            copy.checklist.push(item.getCopy());
-        }
+        const defaultItem = CheckListItem.makeDefault();
+        return new TodoItem("Todo", "To be done", Date.now(), 2, [defaultItem]);
     }
 
     addChecklistItem(item)
@@ -51,6 +42,14 @@ export default class TodoItem
 
     #updateProgress()
     {
-        this.progress = this.checklist.reduce((total, item, _, __) => item.checked ? total + 1: total) / this.checklist.length;
+        if (this.checklist.length > 0)
+        {
+            const totalChecked = this.checklist.reduce((total, item, _, __) => item.checked ? total + 1: total, 0);
+            this.progress = totalChecked / this.checklist.length;
+        }
+        else
+        {
+            this.progress = 1;
+        }
     }
 }

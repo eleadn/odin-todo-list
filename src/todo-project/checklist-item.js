@@ -6,10 +6,8 @@ export default class CheckListItem
         this.checked = false;
     }
 
-    getCopy()
+    static makeDefault()
     {
-        const copy = new CheckListItem(this.description);
-        copy.checked = this.checked;
-        return copy;
+        return new CheckListItem("Task");
     }
 }

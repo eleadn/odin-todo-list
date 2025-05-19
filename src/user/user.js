@@ -1,4 +1,4 @@
-import Project from "../todo-project/project";
+require("../todo-project/project")
 
 export default class User
 {

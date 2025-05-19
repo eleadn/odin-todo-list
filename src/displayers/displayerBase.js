@@ -1,4 +1,4 @@
-export default class ViewBase
+export default class DisplayerBase
 {
     _document;
     _container;
@@ -7,6 +7,14 @@ export default class ViewBase
     {
         this._document = document;
         this._container = container;
+    }
+
+    _invokeListener(listener, ...params)
+    {
+        if (listener !== null)
+        {
+            listener(...params);
+        }
     }
 
     _resetContainer()

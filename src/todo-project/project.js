@@ -1,4 +1,4 @@
-require("./todo-item")
+import TodoItem from "./todo-item";
 
 export default class Project
 {
@@ -14,18 +14,10 @@ export default class Project
         }
     }
 
-    getCopy()
+    static makeDefault()
     {
-        const copy = new Project(this.title, this.description);
-        copy.onProjectTitleUpdate = this.onProjectTitleUpdate;
-
-        for (let i = 0; i < this.todoList.length; ++i)
-        {
-            const todoList = this.todoList.at(i);
-            copy.todoList.push({id: todoList.id, todo: todoList.todo.getCopy()});
-        }
-
-        return copy;
+        const defaultTodo = TodoItem.makeDefault();
+        return new Project("New Project", "Project Description", [defaultTodo]);
     }
 
     addTodoList(todoItem)
