@@ -6,12 +6,16 @@ export default class ProjectDisplayer extends DisplayerBase
     projectNameChangedListener;
     projectDescriptionChangedListener;
     projectRemoveListener;
+    addTodoListener;
 
     constructor(document, projectContainer)
     {
         super(document, projectContainer);
 
         this.projectNameChangedListener = null;
+        this.projectDescriptionChangedListener = null;
+        this.projectRemoveListener = null;
+        this.addTodoListener = null;
     }
 
     #showProjectHeader(project)
@@ -73,6 +77,7 @@ export default class ProjectDisplayer extends DisplayerBase
 
         const addButton = this._document.createElement("button");
         addButton.classList.add("button-add-todo");
+        addButton.addEventListener("click", _ => { this._invokeListener(this.addTodoListener) });
 
         const addButtonImg = this._document.createElement("div");
 

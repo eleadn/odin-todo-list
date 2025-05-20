@@ -1,6 +1,7 @@
 import ProjectDisplayer from "./displayers/projectDisplayer";
 import SidebarDisplayer from "./displayers/sidebarDisplayer";
 import Project from "./todo-project/project";
+import TodoItem from "./todo-project/todo-item";
 
 export default class DisplayHandler
 {
@@ -48,6 +49,7 @@ export default class DisplayHandler
         this.#projectDisplayer.projectNameChangedListener = (newName) => { this.#onProjectNameChanged(newName) };
         this.#projectDisplayer.projectDescriptionChangedListener = (newDescription) => { this.#user.updateProjectDescription(this.#selectedProject, newDescription) };
         this.#projectDisplayer.projectRemoveListener = _ => { this.#onProjectRemoved() };
+        this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
     }
 
     #onProjectSelected(projectId)
@@ -72,5 +74,11 @@ export default class DisplayHandler
         }
 
         this.#sidebarDisplayer.show(this.#user);
+    }
+
+    #onAddTodo()
+    {
+        this.#user.getProject(this.#selectedProject).addTodoList(TodoItem.makeDefault());
+        this.#projectDisplayer.show(this.#user.getProject(this.#selectedProject));
     }
 }
