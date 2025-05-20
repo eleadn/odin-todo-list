@@ -4,6 +4,7 @@ import DisplayerBase from "./displayerBase";
 export default class ProjectDisplayer extends DisplayerBase
 {
     projectNameChangedListener;
+    projectDescriptionChangedListener;
 
     constructor(document, projectContainer)
     {
@@ -39,7 +40,7 @@ export default class ProjectDisplayer extends DisplayerBase
             ["project-desc"],
             true
         );
-        projectDescTextBox.contentChangedListener = (newDesc) => { };
+        projectDescTextBox.contentChangedListener = (newDesc) => { this._invokeListener(this.projectDescriptionChangedListener, newDesc) };
 
         const removeProject = this._document.createElement("button");
         removeProject.classList.add("remove-project");

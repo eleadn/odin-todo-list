@@ -46,6 +46,7 @@ export default class DisplayHandler
     #setProjectListeners()
     {
         this.#projectDisplayer.projectNameChangedListener = (newName) => { this.#onProjectNameChanged(newName) };
+        this.#projectDisplayer.projectDescriptionChangedListener = (newDescription) => { this.#user.updateProjectDescription(this.#selectedProject, newDescription) };
     }
 
     #onProjectSelected(projectId)
