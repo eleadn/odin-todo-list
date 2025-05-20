@@ -50,7 +50,7 @@ export default class DisplayHandler
         this.#projectDisplayer.projectDescriptionChangedListener = (newDescription) => { this.#user.updateProjectDescription(this.#selectedProject, newDescription) };
         this.#projectDisplayer.projectRemoveListener = _ => { this.#onProjectRemoved() };
         this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
-        this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).checked = checked };
+        this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
     }
 
     #onProjectSelected(projectId)
@@ -81,5 +81,12 @@ export default class DisplayHandler
     {
         this.#user.getProject(this.#selectedProject).addTodoList(TodoItem.makeDefault());
         this.#projectDisplayer.show(this.#user.getProject(this.#selectedProject));
+    }
+
+    #onTodoValidateChanged(checked, todoId)
+    {
+        const project = this.#user.getProject(this.#selectedProject);
+        project.validateTodoList(todoId, checked);
+        this.#projectDisplayer.show(project);
     }
 }
