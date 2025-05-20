@@ -95,7 +95,7 @@ export default class SidebarDisplayer extends DisplayerBase
         const projectList = this._document.createElement("ul");
         projectList.classList.add("project-list");
 
-        var shouldReset = user.projects.every((project, _, __) => project.id !== this.#selectedProject);
+        var shouldReset = user.projects.every((project, _, __) => this.#selectedProject === null || project.id !== this.#selectedProject.dataset.id);
         for (let i = 0; i < user.projects.length; ++i)
         {
             const projectElement = this.#createProjectElement(user.projects[i], i === 0 && shouldReset);
@@ -112,7 +112,7 @@ export default class SidebarDisplayer extends DisplayerBase
         const projectButton = this._document.createElement("button");
         projectButton.classList.add("project-button");
         projectButton.dataset.id = project.id;
-        if (shouldSelect || !shouldSelect && project.id === this.#selectedProject.dataset.id)
+        if (shouldSelect || !shouldSelect && this.#selectedProject !== null && project.id === this.#selectedProject.dataset.id)
         {
             this.#setSelectedProject(projectButton);
         }
