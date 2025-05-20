@@ -7,6 +7,7 @@ export default class ProjectDisplayer extends DisplayerBase
     projectDescriptionChangedListener;
     projectRemoveListener;
     addTodoListener;
+    todoValidateChangedListener;
 
     constructor(document, projectContainer)
     {
@@ -127,14 +128,16 @@ export default class ProjectDisplayer extends DisplayerBase
         const todoExpandImg = this._document.createElement("div");
 
         const validate = this._document.createElement("input");
+        validate.checked = currentTodo.content.checked;
         validate.type = "checkbox";
+        validate.addEventListener("change", _ => { this._invokeListener(this.todoValidateChangedListener, validate.checked, currentTodo.id) });
 
         const todoNameHeader = this._document.createElement("div");
         todoNameHeader.classList.add("todo-name-header");
 
         const todoName = this._document.createElement("span");
         todoName.classList.add("todo-name");
-        todoName.textContent = currentTodo.todo.title;
+        todoName.textContent = currentTodo.content.title;
 
         const todoNameEdit = this._document.createElement("button");
         todoNameEdit.classList.add("todo-name-edit");
@@ -161,42 +164,42 @@ export default class ProjectDisplayer extends DisplayerBase
         todoOptions.classList.add("todo-options");
 
         const progressBar = this._document.createElement("progress");
-        progressBar.value = currentTodo.todo.progress;
+        progressBar.value = currentTodo.content.progress;
 
         const priority = this._document.createElement("select");
 
         const veryLow = this._document.createElement("option");
         veryLow.value = "0";
         veryLow.textContent = "Very Low";
-        if (currentTodo.todo.priority === 0)
+        if (currentTodo.content.priority === 0)
         {
             veryLow.selected = "selected";
         }
         const low = this._document.createElement("option");
         low.value = "1";
         low.textContent = "Low";
-        if (currentTodo.todo.priority === 1)
+        if (currentTodo.content.priority === 1)
         {
             low.selected = "selected";
         }
         const normal = this._document.createElement("option");
         normal.value = "2";
         normal.textContent = "Normal";
-        if (currentTodo.todo.priority === 2)
+        if (currentTodo.content.priority === 2)
         {
             normal.selected = "selected";
         }
         const high = this._document.createElement("option");
         high.value = "3";
         high.textContent = "High";
-        if (currentTodo.todo.priority === 3)
+        if (currentTodo.content.priority === 3)
         {
             high.selected = "selected";
         }
         const veryHigh = this._document.createElement("option");
         veryHigh.value = "4";
         veryHigh.textContent = "Very High";
-        if (currentTodo.todo.priority === 4)
+        if (currentTodo.content.priority === 4)
         {
             veryHigh.selected = "selected";
         }

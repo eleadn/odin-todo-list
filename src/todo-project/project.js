@@ -23,7 +23,7 @@ export default class Project
     addTodoList(todoItem)
     {
         const id = crypto.randomUUID();
-        this.todoList.push({id, todo: todoItem});
+        this.todoList.push({id, content: todoItem});
     }
 
     addTodoLists(todoItems)
@@ -37,6 +37,6 @@ export default class Project
     getTodoList(id)
     {
         const todoList = this.todoList.find((value, _, __) => value.id === id);
-        return todoList !== undefined ? todoList: null;
+        return todoList !== undefined ? todoList.content: null;
     }
 }
