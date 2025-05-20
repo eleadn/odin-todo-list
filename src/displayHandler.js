@@ -5,6 +5,7 @@ import Project from "./todo-project/project";
 export default class DisplayHandler
 {
     #user;
+    #selectedProject;
 
     #sidebarDisplayer;
     #projectDisplayer;
@@ -12,6 +13,11 @@ export default class DisplayHandler
     constructor(document, user)
     {
         this.#user = user;
+
+        if (this.#user.projects.length == 0)
+        {
+            this.#user.addProject(Project.makeDefault());
+        }
 
         const sidebarContainer = document.querySelector("#sidebar");
         this.#sidebarDisplayer = new SidebarDisplayer(document, sidebarContainer);
