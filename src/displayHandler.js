@@ -14,7 +14,7 @@ export default class DisplayHandler
     {
         this.#user = user;
 
-        if (this.#user.projects.length == 0)
+        if (this.#user.projects.length === 0)
         {
             this.#user.addProject(Project.makeDefault());
         }
@@ -47,6 +47,7 @@ export default class DisplayHandler
     {
         this.#projectDisplayer.projectNameChangedListener = (newName) => { this.#onProjectNameChanged(newName) };
         this.#projectDisplayer.projectDescriptionChangedListener = (newDescription) => { this.#user.updateProjectDescription(this.#selectedProject, newDescription) };
+        this.#projectDisplayer.projectRemoveListener = _ => { this.#onProjectRemoved() };
     }
 
     #onProjectSelected(projectId)
@@ -58,6 +59,18 @@ export default class DisplayHandler
     #onProjectNameChanged(newName)
     {
         this.#user.updateProjectName(this.#selectedProject, newName);
+        this.#sidebarDisplayer.show(this.#user);
+    }
+
+    #onProjectRemoved()
+    {
+        this.#user.removeProject(this.#selectedProject);
+        
+        if (this.#user.projects.length === 0)
+        {
+            this.#user.addProject(Project.makeDefault());
+        }
+
         this.#sidebarDisplayer.show(this.#user);
     }
 }

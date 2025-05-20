@@ -5,6 +5,7 @@ export default class ProjectDisplayer extends DisplayerBase
 {
     projectNameChangedListener;
     projectDescriptionChangedListener;
+    projectRemoveListener;
 
     constructor(document, projectContainer)
     {
@@ -44,7 +45,7 @@ export default class ProjectDisplayer extends DisplayerBase
 
         const removeProject = this._document.createElement("button");
         removeProject.classList.add("remove-project");
-        removeProject.addEventListener("click", _ => {});
+        removeProject.addEventListener("click", _ => { this._invokeListener(this.projectRemoveListener) });
 
         const removeProjectPicture = this._document.createElement("div");
         
