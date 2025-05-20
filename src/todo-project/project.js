@@ -35,17 +35,17 @@ export default class Project
 
     addTodoList(todoItem)
     {
-        const id = crypto.randomUUID();
-        this.#todoList.push({id, content: todoItem});
-        this.#reorder();
+        this.#addTodoList(todoItem, true);
     }
 
     addTodoLists(todoItems)
     {
         for (let i = 0; i < todoItems.length; ++i)
         {
-            this.addTodoList(todoItems.at(i));
+            this.#addTodoList(todoItems[i], false);
         }
+
+        this.#reorder();
     }
 
     getTodoList(id)
@@ -59,6 +59,17 @@ export default class Project
         const todoList = this.getTodoList(id);
         todoList.checked = checked;
         this.#reorder();
+    }
+
+    #addTodoList(todoItem, shouldReorder)
+    {
+        const id = crypto.randomUUID();
+        this.#todoList.push({id, content: todoItem});
+
+        if (shouldReorder)
+        {
+            this.#reorder();
+        }
     }
 
     #compareTodoList(a, b)
