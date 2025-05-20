@@ -3,9 +3,13 @@ import DisplayerBase from "./displayerBase";
 
 export default class ProjectDisplayer extends DisplayerBase
 {
+    projectNameChangedListener;
+
     constructor(document, projectContainer)
     {
         super(document, projectContainer);
+
+        this.projectNameChangedListener = null;
     }
 
     #showProjectHeader(project)
@@ -21,7 +25,7 @@ export default class ProjectDisplayer extends DisplayerBase
             project.title,
             ["project-name"]
         );
-        projectNameTextBox.contentChangedListener = (name) => {};
+        projectNameTextBox.contentChangedListener = (newName) => { this._invokeListener(this.projectNameChangedListener, newName) };
 
         const editProjectName = this._document.createElement("button");
         editProjectName.classList.add("edit-project-name");
@@ -35,7 +39,7 @@ export default class ProjectDisplayer extends DisplayerBase
             ["project-desc"],
             true
         );
-        projectDescTextBox.contentChangedListener = (name) => {};
+        projectDescTextBox.contentChangedListener = (newDesc) => { };
 
         const removeProject = this._document.createElement("button");
         removeProject.classList.add("remove-project");
