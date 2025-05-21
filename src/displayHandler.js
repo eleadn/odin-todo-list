@@ -52,7 +52,7 @@ export default class DisplayHandler
         this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
         this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
         this.#projectDisplayer.todoNameChangedListener = (todoId, newName) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).title = newName };
-        this.#projectDisplayer.todoPriorityChanged = (todoId, newPriority) => { this.#user.getProject(this.#selectedProject).setTodoPriority(todoId, newPriority) };
+        this.#projectDisplayer.todoPriorityChanged = (todoId, newPriority) => { this.#onTodoPriorityChanged(todoId, newPriority) };
     }
 
     #onProjectSelected(projectId)
@@ -89,6 +89,13 @@ export default class DisplayHandler
     {
         const project = this.#user.getProject(this.#selectedProject);
         project.validateTodoList(todoId, checked);
+        this.#projectDisplayer.show(project);
+    }
+
+    #onTodoPriorityChanged(todoId, priority)
+    {
+        const project = this.#user.getProject(this.#selectedProject);
+        project.setTodoPriority(todoId, priority);
         this.#projectDisplayer.show(project);
     }
 }

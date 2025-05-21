@@ -86,6 +86,11 @@ export default class Project
             return a.checked ? 1: -1;
         }
 
+        if (a.priority !== b.priority)
+        {
+            return b.priority - a.priority;
+        }
+
         return 0;
     }
 
