@@ -357,7 +357,13 @@ body
     background-color: var(--ternary-color-active);
 }
 
-.todo-options, .todo-desc
+.todo-options
+{
+    padding: 0 15px;
+    margin: 3px 30px;
+}
+
+.todo-desc
 {
     padding: 0 15px;
     margin: 3px 30px 0 30px;
