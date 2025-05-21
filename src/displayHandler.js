@@ -51,6 +51,7 @@ export default class DisplayHandler
         this.#projectDisplayer.projectRemoveListener = _ => { this.#onProjectRemoved() };
         this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
         this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
+        this.#projectDisplayer.todoNameChangedListener = (todoId, newName) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).title = newName };
     }
 
     #onProjectSelected(projectId)

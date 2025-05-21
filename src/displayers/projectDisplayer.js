@@ -8,6 +8,7 @@ export default class ProjectDisplayer extends DisplayerBase
     projectRemoveListener;
     addTodoListener;
     todoValidateChangedListener;
+    todoNameChangedListener;
 
     constructor(document, projectContainer)
     {
@@ -17,6 +18,8 @@ export default class ProjectDisplayer extends DisplayerBase
         this.projectDescriptionChangedListener = null;
         this.projectRemoveListener = null;
         this.addTodoListener = null;
+        this.todoValidateChangedListener = null;
+        this.todoNameChangedListener = null;
     }
 
     #showProjectHeader(project)
@@ -135,12 +138,16 @@ export default class ProjectDisplayer extends DisplayerBase
         const todoNameHeader = this._document.createElement("div");
         todoNameHeader.classList.add("todo-name-header");
 
-        const todoName = this._document.createElement("span");
-        todoName.classList.add("todo-name");
-        todoName.textContent = currentTodo.content.title;
+        const todoName = new TextBox(
+            this._document,
+            currentTodo.content.title,
+            ["todo-name"]
+        );
+        todoName.contentChangedListener = (newName) => { this._invokeListener(this.todoNameChangedListener, currentTodo.id, newName) };
 
         const todoNameEdit = this._document.createElement("button");
         todoNameEdit.classList.add("todo-name-edit");
+        todoNameEdit.addEventListener("click", _ => { todoName.startEdit() });
 
         const todoNameEditImg = this._document.createElement("div");
 
@@ -148,7 +155,7 @@ export default class ProjectDisplayer extends DisplayerBase
 
         todoNameEdit.appendChild(todoNameEditImg);
 
-        todoNameHeader.appendChild(todoName);
+        todoName.setParent(todoNameHeader);
         todoNameHeader.appendChild(todoNameEdit);
 
         todoHeader.appendChild(todoExpand);
