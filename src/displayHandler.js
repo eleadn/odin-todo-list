@@ -52,6 +52,7 @@ export default class DisplayHandler
         this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
         this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
         this.#projectDisplayer.todoNameChangedListener = (todoId, newName) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).title = newName };
+        this.#projectDisplayer.todoPriorityChanged = (todoId, newPriority) => { this.#user.getProject(this.#selectedProject).setTodoPriority(todoId, newPriority) };
     }
 
     #onProjectSelected(projectId)

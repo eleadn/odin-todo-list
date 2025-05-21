@@ -1,3 +1,4 @@
+import Select from "../utility/select";
 import TextBox from "../utility/textBox";
 import DisplayerBase from "./displayerBase";
 
@@ -9,6 +10,7 @@ export default class ProjectDisplayer extends DisplayerBase
     addTodoListener;
     todoValidateChangedListener;
     todoNameChangedListener;
+    todoPriorityChanged;
 
     constructor(document, projectContainer)
     {
@@ -173,57 +175,27 @@ export default class ProjectDisplayer extends DisplayerBase
         const progressBar = this._document.createElement("progress");
         progressBar.value = currentTodo.content.progress;
 
-        const priority = this._document.createElement("select");
-
-        const veryLow = this._document.createElement("option");
-        veryLow.value = "0";
-        veryLow.textContent = "Very Low";
-        if (currentTodo.content.priority === 0)
-        {
-            veryLow.selected = "selected";
-        }
-        const low = this._document.createElement("option");
-        low.value = "1";
-        low.textContent = "Low";
-        if (currentTodo.content.priority === 1)
-        {
-            low.selected = "selected";
-        }
-        const normal = this._document.createElement("option");
-        normal.value = "2";
-        normal.textContent = "Normal";
-        if (currentTodo.content.priority === 2)
-        {
-            normal.selected = "selected";
-        }
-        const high = this._document.createElement("option");
-        high.value = "3";
-        high.textContent = "High";
-        if (currentTodo.content.priority === 3)
-        {
-            high.selected = "selected";
-        }
-        const veryHigh = this._document.createElement("option");
-        veryHigh.value = "4";
-        veryHigh.textContent = "Very High";
-        if (currentTodo.content.priority === 4)
-        {
-            veryHigh.selected = "selected";
-        }
+        const priority = new Select(
+            this._document,
+            [
+                Select.createOption("0", "Very Low"),
+                Select.createOption("1", "Low"),
+                Select.createOption("2", "Normal"),
+                Select.createOption("3", "High"),
+                Select.createOption("4", "Very High")
+            ],
+            [],
+            currentTodo.content.priority
+        );
+        priority.changeSelectionListener = newSelection => { this._invokeListener(this.todoPriorityChanged, currentTodo.id, newSelection) };
 
         const todoDeadline = this._document.createElement("input");
         todoDeadline.class = "todo-deadline";
         todoDeadline.type = "date";
         //todoDeadline.valueAsDate = currentTodo.todo.dueDate;
 
-        priority.appendChild(veryLow);
-        priority.appendChild(low);
-        priority.appendChild(normal);
-        priority.appendChild(high);
-        priority.appendChild(veryHigh);
-
         todoOptions.appendChild(progressBar);
-        todoOptions.appendChild(priority);
+        priority.setParent(todoOptions);
         todoOptions.appendChild(todoDeadline);
 
         todoContainer.appendChild(todoOptions);

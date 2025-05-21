@@ -61,6 +61,13 @@ export default class Project
         this.#reorder();
     }
 
+    setTodoPriority(id, priority)
+    {
+        const todoList = this.getTodoList(id);
+        todoList.priority = priority;
+        this.#reorder();
+    }
+
     #addTodoList(todoItem, shouldReorder)
     {
         const id = crypto.randomUUID();
