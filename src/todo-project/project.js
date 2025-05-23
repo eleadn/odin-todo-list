@@ -1,4 +1,5 @@
 import TodoItem from "./todo-item";
+import { compareAsc } from "date-fns";
 
 export default class Project
 {
@@ -68,6 +69,13 @@ export default class Project
         this.#reorder();
     }
 
+    setTodoDueDate(id, newDate)
+    {
+        const todoList = this.getTodoList(id);
+        todoList.dueDate = newDate;
+        this.#reorder();
+    }
+
     #addTodoList(todoItem, shouldReorder)
     {
         const id = crypto.randomUUID();
@@ -84,6 +92,11 @@ export default class Project
         if (a.checked !== b.checked)
         {
             return a.checked ? 1: -1;
+        }
+
+        if (a.dueDate !== b.dueDate)
+        {
+            return a.dueDate === null ? 1 : b.dueDate === null ? -1 : compareAsc(a.dueDate, b.dueDate);
         }
 
         if (a.priority !== b.priority)

@@ -2,6 +2,7 @@ import ProjectDisplayer from "./displayers/projectDisplayer";
 import SidebarDisplayer from "./displayers/sidebarDisplayer";
 import Project from "./todo-project/project";
 import TodoItem from "./todo-project/todo-item";
+import { parse } from "date-fns";
 
 export default class DisplayHandler
 {
@@ -53,6 +54,7 @@ export default class DisplayHandler
         this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
         this.#projectDisplayer.todoNameChangedListener = (todoId, newName) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).title = newName };
         this.#projectDisplayer.todoPriorityChanged = (todoId, newPriority) => { this.#onTodoPriorityChanged(todoId, newPriority) };
+        this.#projectDisplayer.todoDueDateChanged = (todoId, newDate) => { this.#onTodoDueDateChanged(todoId, newDate) };
     }
 
     #onProjectSelected(projectId)
@@ -96,6 +98,14 @@ export default class DisplayHandler
     {
         const project = this.#user.getProject(this.#selectedProject);
         project.setTodoPriority(todoId, priority);
+        this.#projectDisplayer.show(project);
+    }
+
+    #onTodoDueDateChanged(todoId, newDate)
+    {
+        const project = this.#user.getProject(this.#selectedProject);
+        const date = parse(newDate, "yyyy-MM-dd", new Date());
+        project.setTodoDueDate(todoId, date);
         this.#projectDisplayer.show(project);
     }
 }

@@ -1,6 +1,7 @@
 import Select from "../utility/select";
 import TextBox from "../utility/textBox";
 import DisplayerBase from "./displayerBase";
+import { format } from "date-fns"
 
 export default class ProjectDisplayer extends DisplayerBase
 {
@@ -11,6 +12,7 @@ export default class ProjectDisplayer extends DisplayerBase
     todoValidateChangedListener;
     todoNameChangedListener;
     todoPriorityChanged;
+    todoDueDateChanged;
 
     constructor(document, projectContainer)
     {
@@ -194,8 +196,9 @@ export default class ProjectDisplayer extends DisplayerBase
         todoDeadline.type = "date";
         if (currentTodo.content.dueDate !== null)
         {
-            todoDeadline.valueAsDate = currentTodo.todo.dueDate;
+            todoDeadline.value = format(currentTodo.content.dueDate, "yyyy-MM-dd");
         }
+        todoDeadline.addEventListener("change", e => { this._invokeListener(this.todoDueDateChanged, currentTodo.id, e.target.value) });
 
         todoOptions.appendChild(progressBar);
         priority.setParent(todoOptions);
