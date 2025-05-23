@@ -296,7 +296,7 @@ body
 
 .todo-header
 {
-    padding: 10px 15px;
+    padding: 5px 30px 0 30px;
     display: flex;
     gap: 5px;
 }
@@ -322,7 +322,7 @@ body
 .todo-name-header
 {
     display: flex;
-    padding: 5px 20px;
+    padding: 5px 5px;
 }
 
 .todo-name
@@ -361,7 +361,7 @@ body
 .todo-options
 {
     padding: 0 15px;
-    margin: 3px 15px;
+    margin: 0 15px 10px;
 
     display: flex;
     align-items: center;
