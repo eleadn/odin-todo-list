@@ -53,8 +53,9 @@ export default class DisplayHandler
         this.#projectDisplayer.addTodoListener = _ => { this.#onAddTodo() };
         this.#projectDisplayer.todoValidateChangedListener = (checked, todoId) => { this.#onTodoValidateChanged(checked, todoId) };
         this.#projectDisplayer.todoNameChangedListener = (todoId, newName) => { this.#user.getProject(this.#selectedProject).getTodoList(todoId).title = newName };
-        this.#projectDisplayer.todoPriorityChanged = (todoId, newPriority) => { this.#onTodoPriorityChanged(todoId, newPriority) };
-        this.#projectDisplayer.todoDueDateChanged = (todoId, newDate) => { this.#onTodoDueDateChanged(todoId, newDate) };
+        this.#projectDisplayer.todoPriorityChangedListener = (todoId, newPriority) => { this.#onTodoPriorityChanged(todoId, newPriority) };
+        this.#projectDisplayer.todoDueDateChangedListener = (todoId, newDate) => { this.#onTodoDueDateChanged(todoId, newDate) };
+        this.#projectDisplayer.todoRemoveListener = (todoId) => { this.#onTodoRemove(todoId) };
     }
 
     #onProjectSelected(projectId)
@@ -106,6 +107,13 @@ export default class DisplayHandler
         const project = this.#user.getProject(this.#selectedProject);
         const date = parse(newDate, "yyyy-MM-dd", new Date());
         project.setTodoDueDate(todoId, date);
+        this.#projectDisplayer.show(project);
+    }
+
+    #onTodoRemove(todoId)
+    {
+        const project = this.#user.getProject(this.#selectedProject);
+        project.removeTodoList(todoId);
         this.#projectDisplayer.show(project);
     }
 }

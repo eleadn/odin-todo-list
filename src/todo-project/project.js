@@ -55,6 +55,11 @@ export default class Project
         return todoList !== undefined ? todoList.content: null;
     }
 
+    removeTodoList(id)
+    {
+        this.#todoList = this.#todoList.filter((value, _, __) => value.id !== id);
+    }
+
     validateTodoList(id, checked)
     {
         const todoList = this.getTodoList(id);

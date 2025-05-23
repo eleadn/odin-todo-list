@@ -11,8 +11,9 @@ export default class ProjectDisplayer extends DisplayerBase
     addTodoListener;
     todoValidateChangedListener;
     todoNameChangedListener;
-    todoPriorityChanged;
-    todoDueDateChanged;
+    todoPriorityChangedListener;
+    todoDueDateChangedListener;
+    todoRemoveListener;
 
     constructor(document, projectContainer)
     {
@@ -189,7 +190,7 @@ export default class ProjectDisplayer extends DisplayerBase
             [],
             currentTodo.content.priority
         );
-        priority.changeSelectionListener = newSelection => { this._invokeListener(this.todoPriorityChanged, currentTodo.id, newSelection) };
+        priority.changeSelectionListener = newSelection => { this._invokeListener(this.todoPriorityChangedListener, currentTodo.id, newSelection) };
 
         const todoDeadline = this._document.createElement("input");
         todoDeadline.classList.add("todo-deadline");
@@ -198,10 +199,11 @@ export default class ProjectDisplayer extends DisplayerBase
         {
             todoDeadline.value = format(currentTodo.content.dueDate, "yyyy-MM-dd");
         }
-        todoDeadline.addEventListener("change", e => { this._invokeListener(this.todoDueDateChanged, currentTodo.id, e.target.value) });
+        todoDeadline.addEventListener("change", e => { this._invokeListener(this.todoDueDateChangedListener, currentTodo.id, e.target.value) });
 
         const removeButton = this._document.createElement("button");
         removeButton.classList.add("todo-remove");
+        removeButton.addEventListener("click", _ => { this._invokeListener(this.todoRemoveListener, currentTodo.id) });
 
         const removeButtonImg = this._document.createElement("div");
 
