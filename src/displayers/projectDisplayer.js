@@ -14,6 +14,7 @@ export default class ProjectDisplayer extends DisplayerBase
     todoPriorityChangedListener;
     todoDueDateChangedListener;
     todoRemoveListener;
+    todoDescriptionChangedListener;
 
     constructor(document, projectContainer)
     {
@@ -121,6 +122,7 @@ export default class ProjectDisplayer extends DisplayerBase
 
         this.#createTodoHeader(currentTodo, todo);
         this.#createTodoOptions(currentTodo, todo);
+        this.#createTodoDescription(currentTodo, todo);
 
         return todo;
     }
@@ -215,6 +217,19 @@ export default class ProjectDisplayer extends DisplayerBase
         todoOptions.appendChild(removeButton);
 
         todoContainer.appendChild(todoOptions);
+    }
+
+    #createTodoDescription(currentTodo, todoContainer)
+    {
+        const todoDesc = new TextBox(
+            this._document,
+            currentTodo.content.description,
+            ["todo-desc"],
+            true
+        );
+        todoDesc.contentChangedListener = (newDesc) => { this._invokeListener(this.todoDescriptionChangedListener, currentTodo.id, newDesc) };
+
+        todoDesc.setParent(todoContainer);
     }
 
     show(project)
