@@ -361,6 +361,10 @@ body
 {
     padding: 0 15px;
     margin: 3px 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .todo-desc
@@ -419,6 +423,39 @@ body
 .button-add-task:hover div
 {
     background-color: #343434;
+}
+
+.todo-remove
+{
+    background-color: var(--ternary-color);
+
+    aspect-ratio: 1 / 1;
+    height: 20px;
+
+    border-radius: 8px;
+    border: solid 2px red;
+
+}
+
+.todo-remove div
+{
+    height: 100%;
+    width: 100%;
+
+    background-color: red;
+
+    -webkit-mask-image: url("./resource/delete.svg");
+    mask-image: url("./resource/delete.svg");
+}
+
+.todo-remove:hover
+{
+    border: solid 2px #FF6666;
+}
+
+.todo-remove:hover div
+{
+    background-color: #FF6666;
 }
 
 .todo-tasks-header
