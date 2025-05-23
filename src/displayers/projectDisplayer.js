@@ -132,11 +132,6 @@ export default class ProjectDisplayer extends DisplayerBase
         const todoHeader = this._document.createElement("div");
         todoHeader.classList.add("todo-header");
 
-        const todoExpand = this._document.createElement("button");
-        todoExpand.classList.add("todo-expand");
-
-        const todoExpandImg = this._document.createElement("div");
-
         const validate = this._document.createElement("input");
         validate.checked = currentTodo.content.checked;
         validate.type = "checkbox";
@@ -158,14 +153,11 @@ export default class ProjectDisplayer extends DisplayerBase
 
         const todoNameEditImg = this._document.createElement("div");
 
-        todoExpand.appendChild(todoExpandImg);
-
         todoNameEdit.appendChild(todoNameEditImg);
 
         todoName.setParent(todoNameHeader);
         todoNameHeader.appendChild(todoNameEdit);
 
-        todoHeader.appendChild(todoExpand);
         todoHeader.appendChild(validate);
         todoHeader.appendChild(todoNameHeader);
 
@@ -176,9 +168,6 @@ export default class ProjectDisplayer extends DisplayerBase
     {
         const todoOptions = this._document.createElement("div");
         todoOptions.classList.add("todo-options");
-
-        const progressBar = this._document.createElement("progress");
-        progressBar.value = currentTodo.content.progress;
 
         const priority = new Select(
             this._document,
@@ -211,7 +200,6 @@ export default class ProjectDisplayer extends DisplayerBase
 
         removeButton.appendChild(removeButtonImg);
 
-        todoOptions.appendChild(progressBar);
         priority.setParent(todoOptions);
         todoOptions.appendChild(todoDeadline);
         todoOptions.appendChild(removeButton);
