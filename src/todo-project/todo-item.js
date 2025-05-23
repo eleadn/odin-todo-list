@@ -2,7 +2,7 @@ import CheckListItem from "./checklist-item";
 
 export default class TodoItem
 {
-    constructor(title, description = "", dueDate = Date.now(), priority = 2, items = [])
+    constructor(title, description = "", dueDate = null, priority = 2, items = [])
     {
         this.title = title;
         this.description = description;
@@ -22,7 +22,7 @@ export default class TodoItem
     static makeDefault()
     {
         const defaultItem = CheckListItem.makeDefault();
-        return new TodoItem("Todo", "To be done", Date.now(), 2, [defaultItem]);
+        return new TodoItem("Todo", "To be done", null, 2, [defaultItem]);
     }
 
     addChecklistItem(item)

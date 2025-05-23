@@ -192,7 +192,10 @@ export default class ProjectDisplayer extends DisplayerBase
         const todoDeadline = this._document.createElement("input");
         todoDeadline.class = "todo-deadline";
         todoDeadline.type = "date";
-        //todoDeadline.valueAsDate = currentTodo.todo.dueDate;
+        if (currentTodo.content.dueDate !== null)
+        {
+            todoDeadline.valueAsDate = currentTodo.todo.dueDate;
+        }
 
         todoOptions.appendChild(progressBar);
         priority.setParent(todoOptions);
