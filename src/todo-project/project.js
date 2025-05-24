@@ -34,6 +34,11 @@ export default class Project
         return new Project("New Project", "Project Description", [defaultTodo]);
     }
 
+    static makeEmpty()
+    {
+        return new Project("");
+    }
+
     addTodoList(todoItem)
     {
         this.#addTodoList(todoItem, true);

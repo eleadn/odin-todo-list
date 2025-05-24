@@ -14,4 +14,9 @@ export default class TodoItem
     {
         return new TodoItem("Todo", "To be done");
     }
+
+    static makeEmpty()
+    {
+        return new TodoItem("");
+    }
 }
